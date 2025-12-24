@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Almarai,Fustat} from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const almarai = Almarai({
+  subsets: ["arabic"],
+  weight: ["300", "400", "700"],
+  variable: "--font-almarai",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const fustat = Fustat({
+  subsets: ["arabic"],
+  weight: ["300", "400", "700"],
+  variable: "--font-fustat",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,9 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ar" dir="rtl">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${almarai.variable} ${fustat.variable} almarai-regular`}
       >
         {children}
       </body>
