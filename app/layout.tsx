@@ -17,8 +17,9 @@ const fustat = Fustat({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "اسئلة و اجوبة",
   description: "answer and question اسئلة واجوبة تعديل علي السؤال ",
+  keywords:[" اسئلة واجوبة"," تعديلات علي الاسئلة والاجوبة "]
 };
 
 export default function RootLayout({
