@@ -48,8 +48,12 @@ export default function Page() {
 
   return (
     <>
+     <div className="text-center min-h-screen w-full color-body almarai-regular">
+        <div className="container p-5">
+      <div className="flex flex-col lg:flex-row items-center gap-6 mb-6">
+            <div className="text-xl lg:w-1/2">اسئلة واجوبة شائعة</div>
       <FormInput onAdd={addItem} notify={toast} />
-
+</div>
       <QAList
         data={data}
         deleteOneItem={deleteOneItem}
@@ -72,6 +76,7 @@ export default function Page() {
       />
       
       <ToastContainer />
+      </div></div>
     </>
   );
 }

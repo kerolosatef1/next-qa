@@ -29,7 +29,7 @@ export default function QAList({
               <div className="px-4 pb-4 text-right">
                 <p className="mb-3">{item.answer}</p>
 
-                <div className="flex gap-3 justify-end">
+                <div className="flex gap-3 justify-start">
                   <button
                     onClick={() => onEdit(item)}
                     className="bg-blue-600 text-white px-4 py-2 rounded"
