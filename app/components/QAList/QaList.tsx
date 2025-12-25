@@ -6,6 +6,7 @@ export default function QAList({
   data = [],
   deleteOneItem,
   onEdit,
+  deleteAllItems
 }: any) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 

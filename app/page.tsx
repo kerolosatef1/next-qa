@@ -30,6 +30,13 @@ export default function Page() {
     toast.success("تم الحذف");
   };
 
+  const deleteAllItems = () => {
+  localStorage.removeItem("items"); // مسح البيانات من localStorage
+  setData([]); // مسح البيانات من الـ state
+  toast.success("تم حذف الكل بنجاح.."); // رسالة نجاح
+};
+
+
   const saveEdit = (updatedItem: any) => {
     const newData = data.map((i) =>
       i.id === updatedItem.id ? updatedItem : i
@@ -47,8 +54,16 @@ export default function Page() {
         data={data}
         deleteOneItem={deleteOneItem}
         onEdit={setEditItem}
+        deleteAllItems={deleteAllItems}
       />
-
+  {data.length >= 1 && (
+        <button
+          onClick={deleteAllItems}
+          className="bg-red-700 t text-white px-6 py-2 rounded-md mt-5 hover:bg-red-500 transition"
+        >
+          مسح الكل
+        </button>
+      )}
       <Edit
         open={!!editItem}
         item={editItem}
