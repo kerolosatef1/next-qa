@@ -3,62 +3,61 @@
 import { useEffect, useState } from "react";
 import QAList from "@/app/components/QAList/QaList";
 import FormInput from "@/app/components/FormInput/FormInput";
+import EditDialog from "@/app/components/Edit/Edit";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const [data, setData] = useState<any[]>([]);
+  const [editItem, setEditItem] = useState<any>(null);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("items") || "[]");
     setData(stored);
   }, []);
 
-  const addItem = (item: any) => {
-    const newData = [...data, item];
+  const sync = (newData: any[]) => {
     setData(newData);
     localStorage.setItem("items", JSON.stringify(newData));
-    notify("تمت الإضافة بنجاح", "Success");
+  };
+
+  const addItem = (item: any) => {
+    const newData = [...data, item];
+    sync(newData);
+    toast.success("تمت الإضافة");
   };
 
   const deleteOneItem = (id: number) => {
-    const newData = data.filter((item) => item.id !== id);
-    setData(newData);
-    localStorage.setItem("items", JSON.stringify(newData));
-    notify("تم حذف السؤال", "Success");
+    sync(data.filter((i) => i.id !== id));
+    toast.success("تم الحذف");
   };
 
-  const deleteAllItems = () => {
-    setData([]);
-    localStorage.removeItem("items");
-    notify("تم حذف الكل", "Success");
-  };
-
-  const notify = (message: string, type: string) => {
-    type === "Error" ? toast.error(message) : toast.success(message);
+  const saveEdit = (updatedItem: any) => {
+    const newData = data.map((i) =>
+      i.id === updatedItem.id ? updatedItem : i
+    );
+    sync(newData);
+    setEditItem(null);
+    toast.success("تم التعديل");
   };
 
   return (
-    <div className="text-center min-h-screen w-full">
-      <div className="container p-5">
-        <div className="flex flex-col lg:flex-row items-center gap-6 mb-6">
-          <div className="text-xl lg:w-1/2">أسئلة وأجوبة شائعة</div>
-          <FormInput onAdd={addItem} notify={notify} />
-        </div>
+    <>
+      <FormInput onAdd={addItem} notify={toast} />
 
-        <QAList data={data} deleteOneItem={deleteOneItem} />
+      <QAList
+        data={data}
+        deleteOneItem={deleteOneItem}
+        onEdit={setEditItem}
+      />
 
-        {data.length > 0 && (
-          <button
-            className="bg-red-700 text-white px-6 py-2 rounded-md mt-5 hover:bg-red-500"
-            onClick={deleteAllItems}
-          >
-            مسح الكل
-          </button>
-        )}
+      <EditDialog
+        open={!!editItem}
+        item={editItem}
+        onClose={() => setEditItem(null)}
+        onSave={saveEdit}
+      />
 
-        <ToastContainer />
-      </div>
-    </div>
+      <ToastContainer />
+    </>
   );
 }

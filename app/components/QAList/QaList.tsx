@@ -2,54 +2,53 @@
 
 import { useState } from "react";
 
-export default function QAList({ data = [], deleteOneItem }: any) {
+export default function QAList({
+  data = [],
+  deleteOneItem,
+  onEdit,
+}: any) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggleItem = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
 
   return (
     <div className="mt-4 space-y-3 w-full">
       {data.length ? (
         data.map((item: any, index: number) => (
-          <div
-            key={item.id}
-            className="border bg-white rounded-lg shadow"
-          >
+          <div key={item.id} className="border bg-white rounded-lg shadow">
             <button
-              onClick={() => toggleItem(index)}
+              onClick={() =>
+                setOpenIndex(openIndex === index ? null : index)
+              }
               className="w-full flex justify-between items-center p-4 text-start"
             >
-              <div className="font-semibold text-gray-800">
-                {item.question}
-              </div>
-
-              <div
-                className={`transition-transform ${
-                  openIndex === index ? "rotate-180" : ""
-                }`}
-              >
-                ▼
-              </div>
+              <span className="font-semibold">{item.question}</span>
+              <span>{openIndex === index ? "▲" : "▼"}</span>
             </button>
 
             {openIndex === index && (
-              <div className="px-4 pb-4 text-right text-sm text-gray-600">
-                {item.answer}
+              <div className="px-4 pb-4 text-right">
+                <p className="mb-3">{item.answer}</p>
 
-                <button
-                  onClick={() => deleteOneItem(item.id)}
-                  className="bg-red-700 text-white px-4 py-2 rounded-md m-5 hover:bg-red-500"
-                >
-                  حذف
-                </button>
+                <div className="flex gap-3 justify-end">
+                  <button
+                    onClick={() => onEdit(item)}
+                    className="bg-blue-600 text-white px-4 py-2 rounded"
+                  >
+                    تعديل
+                  </button>
+
+                  <button
+                    onClick={() => deleteOneItem(item.id)}
+                    className="bg-red-700 text-white px-4 py-2 rounded"
+                  >
+                    حذف
+                  </button>
+                </div>
               </div>
             )}
           </div>
         ))
       ) : (
-        <h2 className="bg-red-500 text-2xl p-4 text-center text-white">
+        <h2 className="bg-red-500 text-white p-4 text-center">
           لا يوجد بيانات
         </h2>
       )}
