@@ -1,13 +1,11 @@
 "use client";
-
 import { useState } from "react";
-
 export default function FormInput({ onAdd, notify }: any) {
   const [qu, setQu] = useState("");
   const [an, setAn] = useState("");
 
   const addNewItem = () => {
-    if (!qu || !an) {
+    if (!qu.trim() || !an.trim()) {
       notify("من فضلك ادخل البيانات", "Error");
       return;
     }

@@ -1,9 +1,8 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import QAList from "@/app/components/QAList/QaList";
 import FormInput from "@/app/components/FormInput/FormInput";
-import EditDialog from "@/app/components/Edit/Edit";
+import Edit from "@/app/components/Edit/Edit";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Page() {
@@ -50,13 +49,13 @@ export default function Page() {
         onEdit={setEditItem}
       />
 
-      <EditDialog
+      <Edit
         open={!!editItem}
         item={editItem}
         onClose={() => setEditItem(null)}
         onSave={saveEdit}
       />
-
+      
       <ToastContainer />
     </>
   );

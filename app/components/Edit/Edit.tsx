@@ -52,14 +52,14 @@ export default function Edit({
         <div className="flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded bg-gray-300"
+            className="px-4 cursor-pointer py-2 rounded bg-gray-300"
           >
             إلغاء
           </button>
 
           <button
             onClick={handleSave}
-            className="px-4 py-2 rounded bg-fuchsia-600 text-white"
+            className="px-4 cursor-pointer py-2 rounded bg-fuchsia-600 text-white"
           >
             حفظ
           </button>
